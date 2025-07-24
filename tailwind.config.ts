@@ -52,6 +52,14 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				rent: 'hsl(var(--rent-color))',
+				business: 'hsl(var(--business-color))',
+				personal: 'hsl(var(--personal-color))',
+				misc: 'hsl(var(--misc-color))',
+				savings: 'hsl(var(--savings-color))',
+				paid: 'hsl(var(--paid-color))',
+				unpaid: 'hsl(var(--unpaid-color))',
+				dueSoon: 'hsl(var(--due-soon-color))',
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
