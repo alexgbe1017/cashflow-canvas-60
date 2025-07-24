@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Wallet, TrendingUp, Calendar, Target, Menu, X } from 'lucide-react';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 import ExpenseTracker from '@/components/ExpenseTracker';
 import IncomeTracker from '@/components/IncomeTracker';
@@ -51,19 +52,22 @@ const Index = () => {
             </div>
           </div>
           
-          <div className="hidden sm:flex items-center gap-4 text-sm">
-            <div className="text-center">
-              <div className="font-semibold text-business">$5,500</div>
-              <div className="text-xs text-muted-foreground">Monthly Income</div>
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:flex items-center gap-4 text-sm">
+              <div className="text-center">
+                <div className="font-semibold text-green-600">$5,500</div>
+                <div className="text-xs text-muted-foreground">Monthly Income</div>
+              </div>
+              <div className="text-center">
+                <div className="font-semibold text-red-600">$3,200</div>
+                <div className="text-xs text-muted-foreground">Monthly Expenses</div>
+              </div>
+              <div className="text-center">
+                <div className="font-semibold text-blue-600">$32.5K</div>
+                <div className="text-xs text-muted-foreground">Current Savings</div>
+              </div>
             </div>
-            <div className="text-center">
-              <div className="font-semibold text-rent">$3,200</div>
-              <div className="text-xs text-muted-foreground">Monthly Expenses</div>
-            </div>
-            <div className="text-center">
-              <div className="font-semibold text-savings">$32.5K</div>
-              <div className="text-xs text-muted-foreground">Current Savings</div>
-            </div>
+            <ThemeToggle />
           </div>
         </div>
       </header>

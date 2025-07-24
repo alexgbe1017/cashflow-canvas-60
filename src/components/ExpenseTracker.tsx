@@ -13,6 +13,7 @@ interface Expense {
   category: 'rent' | 'subscription' | 'misc' | 'baby';
   isPaid: boolean;
   isRecurring: boolean;
+  purpose?: string;
 }
 
 const ExpenseTracker = () => {
@@ -26,7 +27,8 @@ const ExpenseTracker = () => {
     name: '',
     amount: '',
     category: 'misc' as const,
-    isRecurring: false
+    isRecurring: false,
+    purpose: ''
   });
 
   const getCategoryIcon = (category: string) => {
@@ -40,10 +42,10 @@ const ExpenseTracker = () => {
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'rent': return 'bg-rent text-white';
-      case 'subscription': return 'bg-primary text-white';
-      case 'baby': return 'bg-savings text-white';
-      default: return 'bg-misc text-white';
+      case 'rent': return 'bg-red-500 text-white';
+      case 'subscription': return 'bg-blue-500 text-white';
+      case 'baby': return 'bg-pink-500 text-white';
+      default: return 'bg-gray-500 text-white';
     }
   };
 
@@ -55,10 +57,11 @@ const ExpenseTracker = () => {
         amount: parseFloat(newExpense.amount),
         category: newExpense.category,
         isPaid: false,
-        isRecurring: newExpense.isRecurring
+        isRecurring: newExpense.isRecurring,
+        purpose: newExpense.purpose
       };
       setExpenses([...expenses, expense]);
-      setNewExpense({ name: '', amount: '', category: 'misc', isRecurring: false });
+      setNewExpense({ name: '', amount: '', category: 'misc', isRecurring: false, purpose: '' });
     }
   };
 
@@ -87,40 +90,50 @@ const ExpenseTracker = () => {
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Add New Expense */}
-        <div className="flex flex-col sm:flex-row gap-2 p-4 bg-muted/50 rounded-lg">
-          <Input
-            placeholder="Expense name"
-            value={newExpense.name}
-            onChange={(e) => setNewExpense({ ...newExpense, name: e.target.value })}
-            className="flex-1"
-          />
-          <Input
-            placeholder="Amount"
-            type="number"
-            value={newExpense.amount}
-            onChange={(e) => setNewExpense({ ...newExpense, amount: e.target.value })}
-            className="w-24"
-          />
-          <select
-            value={newExpense.category}
-            onChange={(e) => setNewExpense({ ...newExpense, category: e.target.value as any })}
-            className="px-3 py-2 border border-input rounded-md bg-background"
-          >
-            <option value="misc">Misc</option>
-            <option value="rent">Rent</option>
-            <option value="subscription">Subscription</option>
-            <option value="baby">Baby</option>
-          </select>
-          <div className="flex items-center gap-2">
-            <Switch
-              checked={newExpense.isRecurring}
-              onCheckedChange={(checked) => setNewExpense({ ...newExpense, isRecurring: checked })}
+        <div className="space-y-3 p-4 bg-muted/30 rounded-lg border">
+          <div className="flex flex-col sm:flex-row gap-2">
+            <Input
+              placeholder="Expense name"
+              value={newExpense.name}
+              onChange={(e) => setNewExpense({ ...newExpense, name: e.target.value })}
+              className="flex-1"
             />
-            <span className="text-sm">Recurring</span>
+            <Input
+              placeholder="Amount"
+              type="number"
+              value={newExpense.amount}
+              onChange={(e) => setNewExpense({ ...newExpense, amount: e.target.value })}
+              className="w-24"
+            />
           </div>
-          <Button onClick={addExpense} size="sm">
-            <Plus className="h-4 w-4" />
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <Input
+              placeholder="What's this for? (e.g., business supplies, personal care)"
+              value={newExpense.purpose}
+              onChange={(e) => setNewExpense({ ...newExpense, purpose: e.target.value })}
+              className="flex-1"
+            />
+            <select
+              value={newExpense.category}
+              onChange={(e) => setNewExpense({ ...newExpense, category: e.target.value as any })}
+              className="px-3 py-2 border border-input rounded-md bg-background"
+            >
+              <option value="misc">Misc</option>
+              <option value="rent">Rent</option>
+              <option value="subscription">Subscription</option>
+              <option value="baby">Baby</option>
+            </select>
+            <div className="flex items-center gap-2">
+              <Switch
+                checked={newExpense.isRecurring}
+                onCheckedChange={(checked) => setNewExpense({ ...newExpense, isRecurring: checked })}
+              />
+              <span className="text-sm">Recurring</span>
+            </div>
+            <Button onClick={addExpense} size="sm">
+              <Plus className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
 
         {/* Expense List */}
@@ -146,6 +159,11 @@ const ExpenseTracker = () => {
                       </Badge>
                     )}
                   </div>
+                  {expense.purpose && (
+                    <div className="text-xs text-muted-foreground mt-1">
+                      For: {expense.purpose}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="flex items-center gap-2">
