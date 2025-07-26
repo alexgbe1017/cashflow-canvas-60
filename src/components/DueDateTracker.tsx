@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Plus, Trash2, Calendar, AlertCircle, CheckCircle } from 'lucide-react';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 interface DueDate {
   id: string;
@@ -16,7 +17,7 @@ interface DueDate {
 }
 
 const DueDateTracker = () => {
-  const [dueDates, setDueDates] = useState<DueDate[]>([
+  const [dueDates, setDueDates] = useLocalStorage<DueDate[]>('dueDates', [
     { id: '1', name: 'Rent Payment', amount: 2800, dueDate: '2024-02-01', isPaid: false, category: 'rent' },
     { id: '2', name: 'Netflix', amount: 15.99, dueDate: '2024-01-28', isPaid: true, category: 'subscription' },
     { id: '3', name: 'Credit Card', amount: 450, dueDate: '2024-01-30', isPaid: false, category: 'card' }

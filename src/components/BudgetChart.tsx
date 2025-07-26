@@ -2,27 +2,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
 import { TrendingUp, BarChart3, PieChart as PieChartIcon } from 'lucide-react';
 import { useState } from 'react';
+import { useFinancialData } from '@/hooks/useFinancialData';
 
 const BudgetChart = () => {
   const [chartType, setChartType] = useState<'bar' | 'line' | 'pie'>('bar');
+  const { getMonthlyData, getExpenseCategories } = useFinancialData();
 
-  // Sample data for the past 6 months
-  const monthlyData = [
-    { month: 'Aug', income: 4800, expenses: 3100, business: 3200, personal: 1600 },
-    { month: 'Sep', income: 5200, expenses: 2900, business: 3500, personal: 1700 },
-    { month: 'Oct', income: 4900, expenses: 3200, business: 3300, personal: 1600 },
-    { month: 'Nov', income: 5500, expenses: 3000, business: 3700, personal: 1800 },
-    { month: 'Dec', income: 6200, expenses: 3500, business: 4200, personal: 2000 },
-    { month: 'Jan', income: 5500, expenses: 3200, business: 3500, personal: 2000 }
-  ];
-
-  // Data for pie chart (current month breakdown)
-  const expenseCategories = [
-    { name: 'Rent', value: 2800, color: 'hsl(var(--rent-color))' },
-    { name: 'Subscriptions', value: 150, color: 'hsl(var(--primary))' },
-    { name: 'Baby Supplies', value: 200, color: 'hsl(var(--savings-color))' },
-    { name: 'Misc', value: 50, color: 'hsl(var(--misc-color))' }
-  ];
+  // Get real data from localStorage
+  const monthlyData = getMonthlyData();
+  const expenseCategories = getExpenseCategories();
 
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {

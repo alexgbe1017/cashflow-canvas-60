@@ -4,11 +4,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Progress } from '@/components/ui/progress';
 import { PiggyBank, Target, TrendingUp, Plus, Minus } from 'lucide-react';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 const SavingsTracker = () => {
-  const [currentSavings, setCurrentSavings] = useState(32500);
-  const [savingsGoal] = useState(35000);
-  const [targetDate] = useState('2026-07-01');
+  const [currentSavings, setCurrentSavings] = useLocalStorage('currentSavings', 32500);
+  const [savingsGoal] = useLocalStorage('savingsGoal', 35000);
+  const [targetDate] = useLocalStorage('targetDate', '2026-07-01');
   const [adjustmentAmount, setAdjustmentAmount] = useState('');
 
   const progressPercentage = (currentSavings / savingsGoal) * 100;

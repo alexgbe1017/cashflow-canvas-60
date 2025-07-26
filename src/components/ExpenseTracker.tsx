@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Plus, Trash2, Home, Car, Wifi, Baby } from 'lucide-react';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 interface Expense {
   id: string;
@@ -17,7 +18,7 @@ interface Expense {
 }
 
 const ExpenseTracker = () => {
-  const [expenses, setExpenses] = useState<Expense[]>([
+  const [expenses, setExpenses] = useLocalStorage<Expense[]>('expenses', [
     { id: '1', name: 'Rent', amount: 2800, category: 'rent', isPaid: true, isRecurring: true },
     { id: '2', name: 'Netflix', amount: 15.99, category: 'subscription', isPaid: true, isRecurring: true },
     { id: '3', name: 'Baby Supplies', amount: 150, category: 'baby', isPaid: false, isRecurring: false }

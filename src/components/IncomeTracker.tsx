@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Trash2, Store, User, TrendingUp } from 'lucide-react';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 interface Income {
   id: string;
@@ -14,7 +15,7 @@ interface Income {
 }
 
 const IncomeTracker = () => {
-  const [incomes, setIncomes] = useState<Income[]>([
+  const [incomes, setIncomes] = useLocalStorage<Income[]>('incomes', [
     { id: '1', source: 'Clothing Sales', amount: 3500, type: 'business', date: '2024-01-15' },
     { id: '2', source: 'Side Hustle', amount: 800, type: 'personal', date: '2024-01-10' },
     { id: '3', source: 'Tax Refund', amount: 1200, type: 'personal', date: '2024-01-05' }

@@ -1,18 +1,25 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { TrendingUp, TrendingDown, DollarSign, Target, Calendar } from 'lucide-react';
+import { useFinancialData } from '@/hooks/useFinancialData';
 
 const MonthlyOverview = () => {
-  // Sample data - in a real app, this would come from your state management
+  const { totalIncome, totalExpenses, businessIncome, personalIncome } = useFinancialData();
+  
+  // Calculate derived values
+  const fixedExpenses = totalExpenses * 0.85; // Estimate 85% fixed
+  const variableExpenses = totalExpenses * 0.15; // Estimate 15% variable
+  const savings = totalIncome - totalExpenses;
+  
   const monthlyData = {
-    totalIncome: 5500,
-    totalExpenses: 3200,
-    businessIncome: 3500,
-    personalIncome: 2000,
-    fixedExpenses: 2800,
-    variableExpenses: 400,
-    savings: 2300,
-    currentMonth: 'January 2024'
+    totalIncome,
+    totalExpenses,
+    businessIncome,
+    personalIncome,
+    fixedExpenses,
+    variableExpenses,
+    savings,
+    currentMonth: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
   };
 
   const netCashflow = monthlyData.totalIncome - monthlyData.totalExpenses;
