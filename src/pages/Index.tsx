@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Wallet, TrendingUp, Calendar, Target, Menu, X } from 'lucide-react';
+import { Wallet, TrendingUp, Calendar, Target, Menu, X, ShoppingCart } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
 
 import ExpenseTracker from '@/components/ExpenseTracker';
@@ -11,6 +11,7 @@ import DueDateTracker from '@/components/DueDateTracker';
 import SavingsTracker from '@/components/SavingsTracker';
 import MonthlyOverview from '@/components/MonthlyOverview';
 import BudgetChart from '@/components/BudgetChart';
+import DailySpendingTracker from '@/components/DailySpendingTracker';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -20,6 +21,7 @@ const Index = () => {
     { id: 'overview', label: 'Overview', icon: TrendingUp },
     { id: 'income', label: 'Income', icon: Wallet },
     { id: 'expenses', label: 'Expenses', icon: Calendar },
+    { id: 'daily', label: 'Daily Spending', icon: ShoppingCart },
     { id: 'due-dates', label: 'Due Dates', icon: Calendar },
     { id: 'savings', label: 'Savings', icon: Target },
     { id: 'charts', label: 'Analytics', icon: TrendingUp }
@@ -44,7 +46,7 @@ const Index = () => {
                 <Wallet className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold">FinanceHub</h1>
+                <h1 className="text-xl font-bold">💰 FinanceHub</h1>
                 <p className="text-sm text-muted-foreground hidden sm:block">
                   Personal & Business Finance Tracker
                 </p>
@@ -55,15 +57,21 @@ const Index = () => {
           <div className="flex items-center gap-4">
             <div className="hidden sm:flex items-center gap-4 text-sm">
               <div className="text-center">
-                <div className="font-semibold text-green-600">$5,500</div>
+                <div className="font-semibold text-green-600 flex items-center gap-1">
+                  $5,500 🚀
+                </div>
                 <div className="text-xs text-muted-foreground">Monthly Income</div>
               </div>
               <div className="text-center">
-                <div className="font-semibold text-red-600">$3,200</div>
+                <div className="font-semibold text-red-600 flex items-center gap-1">
+                  $3,200 📊
+                </div>
                 <div className="text-xs text-muted-foreground">Monthly Expenses</div>
               </div>
               <div className="text-center">
-                <div className="font-semibold text-blue-600">$32.5K</div>
+                <div className="font-semibold text-blue-600 flex items-center gap-1">
+                  $32.5K 🎯
+                </div>
                 <div className="text-xs text-muted-foreground">Current Savings</div>
               </div>
             </div>
@@ -112,7 +120,7 @@ const Index = () => {
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             {/* Desktop Tab Navigation */}
             <div className="hidden lg:block">
-              <TabsList className="grid w-full grid-cols-6">
+              <TabsList className="grid w-full grid-cols-7">
                 {navigation.map((item) => {
                   const Icon = item.icon;
                   return (
@@ -204,6 +212,10 @@ const Index = () => {
 
             <TabsContent value="expenses">
               <ExpenseTracker />
+            </TabsContent>
+
+            <TabsContent value="daily">
+              <DailySpendingTracker />
             </TabsContent>
 
             <TabsContent value="due-dates">

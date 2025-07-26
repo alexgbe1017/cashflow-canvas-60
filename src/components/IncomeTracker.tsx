@@ -61,7 +61,10 @@ const IncomeTracker = () => {
     <Card className="w-full">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
-          <span>Income Tracker</span>
+          <span className="flex items-center gap-2">
+            💰 Income Tracker
+            {totalIncome > 5000 ? ' 🚀' : totalIncome > 3000 ? ' 📈' : ' 💪'}
+          </span>
           <div className="flex items-center gap-2 text-sm">
             <TrendingUp className="h-4 w-4 text-business" />
             <span className="text-muted-foreground">${totalIncome.toFixed(2)}</span>
@@ -72,12 +75,27 @@ const IncomeTracker = () => {
         {/* Income Summary */}
         <div className="grid grid-cols-2 gap-4">
           <div className="p-3 bg-business/10 rounded-lg border border-business/20">
-            <div className="text-sm text-muted-foreground">Business</div>
+            <div className="text-sm text-muted-foreground flex items-center gap-1">
+              🏢 Business {businessIncome > 4000 ? '🔥' : ''}
+            </div>
             <div className="text-xl font-bold text-business">${businessIncome.toFixed(2)}</div>
           </div>
           <div className="p-3 bg-personal/10 rounded-lg border border-personal/20">
-            <div className="text-sm text-muted-foreground">Personal</div>
+            <div className="text-sm text-muted-foreground flex items-center gap-1">
+              👤 Personal {personalIncome > 2000 ? '💪' : ''}
+            </div>
             <div className="text-xl font-bold text-personal">${personalIncome.toFixed(2)}</div>
+          </div>
+        </div>
+
+        {/* Income Tips */}
+        <div className="p-3 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
+          <div className="text-green-700 dark:text-green-300 font-semibold mb-2">💡 Income Growth Tips</div>
+          <div className="text-sm text-green-600 dark:text-green-400 space-y-1">
+            {businessIncome < 3000 && <div>• 🎯 Focus on high-value business activities to boost revenue</div>}
+            {personalIncome === 0 && <div>• 💼 Consider side hustles like freelancing or selling unused items</div>}
+            {totalIncome > 6000 && <div>• 🎉 Great income! Make sure you're saving at least 20% for your goals</div>}
+            {businessIncome > personalIncome * 2 && <div>• 📊 Strong business income! Consider reinvesting for growth</div>}
           </div>
         </div>
 

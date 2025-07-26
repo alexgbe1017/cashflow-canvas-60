@@ -83,9 +83,13 @@ const ExpenseTracker = () => {
     <Card className="w-full">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
-          <span>Expense Tracker</span>
+          <span className="flex items-center gap-2">
+            💳 Expense Tracker
+            {paidExpenses/totalExpenses > 0.8 ? ' ✅' : paidExpenses/totalExpenses > 0.5 ? ' ⚠️' : ' 🚨'}
+          </span>
           <div className="text-sm text-muted-foreground">
             ${paidExpenses.toFixed(2)} / ${totalExpenses.toFixed(2)}
+            {paidExpenses >= totalExpenses ? ' 🎯' : ''}
           </div>
         </CardTitle>
       </CardHeader>

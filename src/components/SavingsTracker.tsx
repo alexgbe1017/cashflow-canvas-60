@@ -42,7 +42,7 @@ const SavingsTracker = () => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <PiggyBank className="h-5 w-5 text-savings" />
-          Savings Goal Tracker
+          🎯 Savings Goal Tracker
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -50,7 +50,10 @@ const SavingsTracker = () => {
         <div className="space-y-4">
           <div className="flex justify-between items-center">
             <div>
-              <div className="text-2xl font-bold">${currentSavings.toLocaleString()}</div>
+              <div className="text-2xl font-bold flex items-center gap-2">
+                ${currentSavings.toLocaleString()}
+                {currentSavings >= savingsGoal ? '🎉' : progressPercentage > 80 ? '🔥' : progressPercentage > 60 ? '💪' : '📈'}
+              </div>
               <div className="text-sm text-muted-foreground">Current Savings</div>
             </div>
             <div className="text-right">
@@ -155,11 +158,22 @@ const SavingsTracker = () => {
           </div>
         </div>
 
-        {/* Status Message */}
-        {currentSavings >= savingsGoal && (
+        {/* Status Message & Tips */}
+        {currentSavings >= savingsGoal ? (
           <div className="p-4 bg-paid/10 border border-paid/20 rounded-lg text-center">
-            <div className="text-paid font-semibold">🎉 Congratulations!</div>
+            <div className="text-paid font-semibold text-lg">🎉 Congratulations! 🎉</div>
             <div className="text-sm text-muted-foreground">You've reached your savings goal!</div>
+            <div className="text-xs text-muted-foreground mt-2">💡 Consider setting a new, higher goal or investing your surplus!</div>
+          </div>
+        ) : (
+          <div className="p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800">
+            <div className="text-blue-700 dark:text-blue-300 font-semibold mb-2">💡 Savings Tips</div>
+            <div className="text-sm text-blue-600 dark:text-blue-400 space-y-1">
+              {monthlyTarget > 2000 && <div>• 📈 Your target is ambitious! Try the 50/30/20 rule for budgeting</div>}
+              {monthlyTarget < 500 && <div>• 🚀 You're so close! Small daily saves add up quickly</div>}
+              {progressPercentage > 90 && <div>• 🏁 Almost there! Stay consistent for the final push</div>}
+              {progressPercentage < 50 && <div>• 💪 Consider automating transfers to make saving easier</div>}
+            </div>
           </div>
         )}
       </CardContent>
